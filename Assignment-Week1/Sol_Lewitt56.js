@@ -1,3 +1,8 @@
+/**
+ * Kevin's notes: nice work!  Great use of conditions and while loops.  
+ * make sure you define cnv on line 8 as 
+ * var cnv;
+ */
 var space=10;
 var canvasWidth=500;
 var canvasHeight=500;
