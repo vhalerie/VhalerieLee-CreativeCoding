@@ -3,6 +3,8 @@
  * make sure you define cnv on line 8 as 
  * var cnv;
  */
+ 
+ //9/21/2016: Thanks! Oops I forgot to define cnv as var! :)
 var space=10;
 var canvasWidth=500;
 var canvasHeight=500;
@@ -15,7 +17,7 @@ function centerCanvas(){//code from processing github
 
 function setup() {
   //createCanvas(canvasWidth+space,canvasHeight+space);
-  cnv=createCanvas(501,501);
+  var cnv=createCanvas(501,501);
   centerCanvas();
 }
 
