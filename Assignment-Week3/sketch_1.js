@@ -7,10 +7,13 @@ function setup() {
 }
 
 function draw(){
-  var x=0;
+  background(255);
+	var x=0;
   var y=0;
   var planeWidth=300;
-  
+	//uncomment this code and play around
+	// push();
+  // rotate( -map(mouseX,0,width,0,TWO_PI)); 
   beginShape();
   for(var i=0; i< planeWidth; i++){
     
@@ -23,8 +26,13 @@ function draw(){
     y+=3;
   }
   endShape();
-  
-  
+  //uncomment this code and play around
+	// pop();
+	
+	
+	//try uncommenting this code and playing around
+	//push();
+  //rotate(map(mouseX,0,width,0,TWO_PI));
   beginShape(LINES);
   var a=0, b=0;
   for(var j=0; j<height;j++){
@@ -35,5 +43,6 @@ function draw(){
     b+=3;
   }
   endShape();
-
+	//try uncommenting this code
+	//pop();
 }
