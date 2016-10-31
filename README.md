@@ -12,3 +12,5 @@ Assignment-Week3 - Moire Patterns
 Assignment-Week4 - Color themes from Interaction of Color by Josef Albers
 
 Assignment-Week5 - Draw a character and use function
+
+Assignment_Week6 - Draw a spiral using Translate and Rotate functions and Lerpcolor
