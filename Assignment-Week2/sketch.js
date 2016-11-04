@@ -1,3 +1,7 @@
+/**
+* Kevin's comments:  Wow!  nice job.  not only did you replicate the work almost perfectly, but your variable names are
+clear and concise.  Keep up the good work!
+**/
 //612x792
 var canvasWidth = 500;
 var canvasHeight = 750;
