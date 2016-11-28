@@ -16,3 +16,9 @@ Assignment-Week5 - Draw a character and use function
 Assignment_Week6 - Draw a spiral using Translate and Rotate functions and Lerpcolor
 
 Assignment_Week7 - Draw shapes and animate along the Lissajous curve
+
+Assignment-Week8 - Particle Systems
+
+Assignment-Week9 - Madlibs using the Rita.js library
+
+Assignment-Week10 - Create GUI (I used the P5.GUI js library)
