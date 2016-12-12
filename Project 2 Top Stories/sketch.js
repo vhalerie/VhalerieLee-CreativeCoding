@@ -1,22 +1,34 @@
-//will run on p5.js
-var nytAPI = "http://api.nytimes.com/svc/topstories/v2/home.json?api-key=4819f46f6b7b4dbabf90f3fcda8a65d2";
-var imageSize = "Normal";
+var nytAPI = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=4819f46f6b7b4dbabf90f3fcda8a65d2";
+var imageSize = "mediumThreeByTwo210";
+//var imageSize = "superJumbo";
 var news=[];
-var images = []; //array of images
+var imageCloud;
+var images = [];
 
-var pixelStep = 5;
+var pixelStep = 4;
 var currentImageIndex = 0;
 var targets = [];
-var repulse;
+var scatterPoint;
 var pixelGroup=[];
 var currentImage;
+var hardcoded;
 
-//hardcoded image for openprocessing because loading from APIs is too heavy for openprocessing
-//var hardcoded = "assets/photo1.jpg";
+var Piece = function(imgURL){
+  this.imgURL = imgURL;
+}
 
 function getNews(data){
   news = data.results; //multimedia is an array of images
 }
+
+var NewsCloud = function() {
+  this.piece = [];
+};
+
+NewsCloud.prototype.addPiece = function(url) {
+  //push everything into the newsCloud
+  this.piece.push(new Piece(url));
+};
 
 function Pixel(x, y, inputColor){
   this.velocity = createVector(0,0);
@@ -24,48 +36,55 @@ function Pixel(x, y, inputColor){
   this.x = x;
   this.y = y;
   
-  this.position = createVector(x,y); //works
+  this.position = createVector(x,y);
   this.pixelColor = color(inputColor);
 }
 
 Pixel.prototype.draw = function(){
   stroke(this.pixelColor);
-  ellipse(this.position.x, this.position.y,1,1);
+  //ellipse(this.position.x, this.position.y,1,1);
+  point(this.position.x, this.position.y);
 }
 
 
 function preload(){
   loadJSON(nytAPI, getNews);
-  for(var i=0; i < news.length; i++){
-    for(var j=0; j< news[i].multimedia.length; j++){
-      if(news[i].multimedia[j].format == imageSize){
-        images[i] = loadImage(news[i].multimedia[j].url); //get image URLs
-        targets.push(images[i].width /2, images[i].height/2); //set target
-      }
-    }
-  }
+  
+  imageCloud = new NewsCloud();
 }
 
 function setup(){
   background(0);
-  createCanvas(190,127);
-  //createCanvas(450,303);
+  createCanvas(210,140);
   smooth();
   pixelDensity(1);
   
+  for(var i=0; i < news.length; i++){
+    for(var j=0; j< news[i].multimedia.length; j++){
+      if(news[i].multimedia[j].format == imageSize){
+          imageCloud.addPiece(news[i].multimedia[j].url);
+      }
+    }
+  }
   
+  for(var i=0; i< imageCloud.piece.length; i++){
+     images[i] = loadImage(imageCloud.piece[i].imgURL);
+     targets.push(images[i].width /2, images[i].height/2); //set target
+  }
   
   dissolve(currentImageIndex);
 }
 
 function dissolve(currentImageIndex){
   
-  repulse = createVector(width/2, height/2);
+  scatterPoint = createVector(width/2, height/2);
   
   images[currentImageIndex].loadPixels();
   
   var i=0;
   var newPixel;
+  
+  clearArray(pixelGroup);
   
   for(var y=0; y < images[currentImageIndex].height; y++){
     for(var x=0; x < images[currentImageIndex].width; x++){
@@ -85,13 +104,19 @@ function dissolve(currentImageIndex){
       if( A == 0) { continue; }
       if( i % pixelStep > 0) { continue; }
       
-      if(newPixel.position.x == repulse.x) newPixel.position.x++;
-      if(newPixel.position.y == repulse.y) newPixel.position.y++;
+      if(newPixel.position.x == scatterPoint.x) newPixel.position.x++;
+      if(newPixel.position.y == scatterPoint.y) newPixel.position.y++;
       
       pixelGroup.push(newPixel);
       newPixel.draw();
-      clear();
+      //clear();
     }
+  }
+}
+
+function clearArray(thisArray){
+  for(var a=0; a<thisArray.length; a++){
+    thisArray.splice(a, thisArray.length);
   }
 }
 
@@ -101,10 +126,10 @@ function draw(){
       
       for(var count=0; count < pixelGroup.length; count++){
         var newVector = createVector(pixelGroup[count].position.x, pixelGroup[count].position.y);
-        newVector.sub(repulse);
+        newVector.sub(scatterPoint);
         
         newVector.normalize();
-        newVector.setMag(random(0.001, 1.0));
+        newVector.setMag(random(0.005, 1.0));
         newVector.x = newVector.x * 1.5;
         
         pixelGroup[count].velocity.add(newVector);
