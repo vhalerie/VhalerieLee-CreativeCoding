@@ -22,3 +22,9 @@ Assignment-Week8 - Particle Systems
 Assignment-Week9 - Madlibs using the Rita.js library
 
 Assignment-Week10 - Create GUI (I used the P5.GUI js library)
+
+Project 1 - New York Times Cloud
+
+Project 2 - Top Stories
+
+Project 3 - Snap
