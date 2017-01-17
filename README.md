@@ -1,5 +1,4 @@
-# VhalerieLee-CreativeCoding
-Repo for my awesome Creative Coding class!
+#P5.JS Visualizations by Vhalerie Lee
 
 Tumblr: http://vhaleriellee.tumblr.com
 
